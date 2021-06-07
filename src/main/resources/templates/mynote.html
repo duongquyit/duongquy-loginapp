@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Notes</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            text-align: center;
+            /* align-items: center; */
+            /* justify-content: center; */
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .containerall {
+            display: flex;
+            margin: 3em auto;
+            max-width: 1200px;
+            
+        }
+
+        .container {
+            background: rgb(223, 228, 228);
+            padding: 1em;
+            border-radius: 20px;
+            width: 80%;
+        }
+
+        .name {
+            width: 20%;
+            color: black;
+            margin: 2em 0em;
+            font-size: 20px;
+
+        }
+
+        table {
+            width: 100%;
+            padding: 0;
+            border: none;
+            font-size: 20px;
+        }
+
+        h3 {
+            padding: 1em;
+        }
+
+
+        .button {
+            padding: 1em 2em;
+            border-radius: 20px;
+            border: 1px solid pink;
+            background: rgb(86, 194, 76);
+
+        }
+
+        .button:hover {
+            background-color: rgb(72, 156, 65);
+        }
+
+        .function {
+            display: flex;
+            width: 100%;
+            margin: 1em;
+        }
+
+        .search {
+            width: 80%;
+        }
+
+        .add {
+            width: 20%;
+        }
+
+        .filter{
+            width: 100%;
+        }
+
+        .listNote{
+            display: flex;
+            flex-wrap: wrap;
+            text-align: left;
+            border-bottom: 1px solid rgb(161, 156, 156);
+            border-left: 1px solid rgb(161, 156, 156);
+            margin: 2em 0em;
+            box-shadow: 10px 20px 10px rgb(161, 156, 156);
+            box-shadow: 10px 20px 10px rgb(161, 156, 156);
+            border-radius: 10px;
+        }
+
+        .title{
+            width: 100%;
+            padding: 0;
+            color: rgb(3, 71, 119);
+            margin: 0em 0.5em;
+        }
+
+        .content{
+            width: 100%;
+            padding: 1em 1.5em;
+        }
+
+        .datetime{
+            width: 75%;
+            padding: 0em 1.5em;
+            margin-bottom: 1em;
+        }
+
+        p a{
+            color: red;
+            text-decoration: none;
+            font-size: 20px;
+            padding: 1em;
+        }
+
+        .header{
+            display: flex;
+            margin: 0 auto;
+            align-items: center;
+            text-align: center;
+            background: rgb(86, 194, 76);
+        }
+        .header h1{
+            width: 30%;
+            margin: 0.5em 0em;
+        }
+        ul{
+            width: 70%;
+            list-style: none;
+        }
+        ul li{
+            display: inline-block;
+            padding: 0;
+        }
+        ul li a{
+            text-decoration: none;
+            padding: 1em 2em;
+            color: black;
+            font-weight: bolder;
+            text-transform: uppercase;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            margin: 0;
+            border-radius: 50px;
+        }
+
+        ul li a:hover{
+            background: rgb(61, 209, 69);
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>FinalExam</h1>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{users}">List Notes</a></li>
+        </ul>
+    </div>
+    <div class="containerall">
+        <div class="name">
+            <form th:action="@{/logout}" method="POST">
+                <p>Welcome <b>[[${#request.userPrincipal.principal.fullName}]]</b></p>
+                <input class="button" style="margin: 1em;" type="submit" value="Log Out">
+            </form>
+        </div>
+        <div class="container">
+
+            <h1>My List Notes</h1>
+
+            <div class="function">
+               
+
+                <form class="add" th:action="@{/users}">
+                    <input class="button" type="submit" value="Back to list notes">
+                </form>
+
+            </div>
+
+            <div class="listNote" th:each="note:${listNote}">
+                <h2 class="title" th:utext="${note.title}"></h2><br>
+                <h3 class="content" th:utext="${note.content}"></h3><br>
+                <h3 class="datetime" th:utext="${note.dateTime}"></h3>
+                <p><a th:href="@{/delete/{id}(id=${note.id})}">Delete</a></p>
+                <p><a th:href="@{/update/{id}(id=${note.id})}">Update</a></p> 
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Notes</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            text-align: center;
+            background-repeat: no-repeat;
+        }
+
+        .containerall {
+            display: flex;
+            margin-top: 3em;
+            max-width: 1200px;
+            margin: 3em auto;
+        }
+
+        .container {
+            background: rgb(223, 228, 228);
+            padding: 1em;
+            border-radius: 20px;
+            width: 80%;
+        }
+
+        .name {
+            width: 20%;
+            color: black;
+            margin: 2em 0em;
+            font-size: 20px;
+        }
+
+        table {
+            width: 100%;
+            padding: 0;
+            border: none;
+            font-size: 20px;
+        }
+
+        h3 {
+            padding: 1em;
+        }
+
+
+        .button {
+            padding: 1em 2em;
+            border-radius: 20px;
+            border: 1px solid pink;
+            background: rgb(86, 194, 76);
+        }
+
+        .button:hover {
+            background-color: rgb(72, 156, 65);
+
+        }
+
+        .function {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            margin: 1em;
+        }
+
+        .search {
+            width: 80%;
+            text-align: left;
+        }
+
+        .add {
+            width: 20%;
+        }
+
+        .filter {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .listNote {
+            text-align: left;
+            border-bottom: 1px solid rgb(161, 156, 156);
+            border-left: 1px solid rgb(161, 156, 156);
+            margin: 2em 0em;
+            box-shadow: 10px 20px 10px rgb(161, 156, 156);
+            box-shadow: 10px 20px 10px rgb(161, 156, 156);
+            border-radius: 10px;
+            background: rgb(230, 227, 227);
+        }
+
+        .title {
+            padding: 0;
+            color: rgb(3, 71, 119);
+            margin: 0em 0.5em;
+        }
+
+        .content {
+            padding: 0em 1.5em;
+        }
+
+        .datetime {
+            padding: 0em 1.5em;
+            margin-bottom: 1em;
+        }
+
+        select{
+            padding: 0.7em;
+            font-size: 15px;
+            margin-right: 1em;
+            border-radius: 5px;
+        }
+        .listNote{
+            text-align: left;
+            border-bottom: 1px solid rgb(161, 156, 156);
+            border-left: 1px solid rgb(161, 156, 156);
+            margin: 2em 0em;
+            box-shadow: 10px 20px 10px rgb(161, 156, 156);
+            box-shadow: 10px 20px 10px rgb(161, 156, 156);
+            border-radius: 10px;
+        }
+
+        .title{
+            padding: 0;
+            color: rgb(3, 71, 119);
+            margin: 0em 0.5em;
+        }
+
+        .content{
+            padding: 0em 1.5em;
+        }
+
+        .datetime{
+            padding: 0em 1.5em;
+            margin-bottom: 1em;
+        }
+
+        .header{
+            display: flex;
+            margin: 0 auto;
+            align-items: center;
+            text-align: center;
+            background: rgb(86, 194, 76);
+        }
+        .header h1{
+            width: 30%;
+            margin: 0.5em 0em;
+        }
+        ul{
+            width: 70%;
+            list-style: none;
+        }
+        ul li{
+            display: inline-block;
+            padding: 0;
+        }
+        ul li a{
+            text-decoration: none;
+            padding: 1em 2em;
+            color: black;
+            font-weight: bolder;
+            text-transform: uppercase;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            margin: 0;
+            border-radius: 50px;
+        }
+
+        ul li a:hover{
+            background: rgb(61, 209, 69);
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>FinalExam</h1>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{users}">List Notes</a></li>
+        </ul>
+    </div>
+    <div class="containerall">
+        <div class="name">
+            <form th:action="@{/logout}" method="POST">
+                <p>Welcome <b>[[${#request.userPrincipal.principal.fullName}]]</b></p>
+                <input class="button" style="margin: 1em;" type="submit" value="Log Out">
+            </form>
+        </div>
+        <div class="container">
+
+            <h1>List Notes</h1>
+
+            <div class="function">
+               
+
+                <form class="add" th:action="@{/users}">
+                    <input class="button" type="submit" value="Back to list notes">
+                </form>
+
+            </div>
+
+            <div class="listNote" th:each="note:${listNote}">
+                <h2 class="title" th:utext="${note.title}"></h2><br>
+                <h3 class="content" th:utext="${note.content}"></h3><br>
+                <h3 class="datetime" th:utext="${note.dateTime}"></h3>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
